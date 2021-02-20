@@ -1,3 +1,4 @@
+name = "build"
 region = "us-east-1"
 public_key = "~/.ssh/id_rsa.pub"
 
