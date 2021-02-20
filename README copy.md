@@ -5,7 +5,7 @@ This is a working Jenkinsfile Multibranch Pipeline for building AWS AMI's images
 ![](images/blueocean-non-master.png)
 ![](images/blueocean-master.png)
 
-The pipeline uses 2 docker images to run jobs, most of the work is done in [hashicorp-pipeline](https://hub.docker.com/r/simonmcc/hashicorp-pipeline/), which contains [packer](https://www.packer.io), [terraform](https://www.terraform.io), [aws cli](https://aws.amazon.com/cli/) & some other [needed binaries](https://github.com/simonmcc/hashicorp-pipeline/blob/master/Dockerfile#L3-L4) (jq, perl), the other docker image used is [chef/inspec](https://hub.docker.com/r/chef/inspec/), which is used to test the stack built during non-master pipeline executions.
+The pipeline uses 2 docker images to run jobs, most of the work is done in [hashicorp-pipeline](https://hub.docker.com/r/sourish88/hashicorp-pipeline/), which contains [packer](https://www.packer.io), [terraform](https://www.terraform.io), [aws cli](https://aws.amazon.com/cli/) & some other [needed binaries](https://github.com/sourish88/hashicorp-pipeline/blob/master/Dockerfile#L3-L4) (jq, perl), the other docker image used is [chef/inspec](https://hub.docker.com/r/chef/inspec/), which is used to test the stack built during non-master pipeline executions.
 
 ### Features
 * `terraform fmt -check=true -diff=true` used to check terraform config files
