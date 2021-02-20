@@ -1,5 +1,5 @@
 {
-  "_readme": [
+  "description": [
     "Ubuntu 16.04 (xenial) LTS",
     "AMI: amd64 hvm:ebs-ssd",
     "     see the *_ami variables below for specific names",
