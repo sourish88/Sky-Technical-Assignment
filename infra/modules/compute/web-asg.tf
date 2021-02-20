@@ -8,13 +8,13 @@ data "aws_ami" "amazon_linux" {
   most_recent = true
 
   filter {
-    name = "AMI"
+    name = "tag:AMI"
 
     values = ["app"]
   }
 
   filter {
-    name = "SHA"
+    name = "tag:SHA"
 
     values = ["${var.ami_sha}"]
   }
