@@ -2,24 +2,6 @@ variable "ami_sha" {
   default = ""
 }
 
-data "aws_ami" "amazon_linux" {
-  most_recent = true
-
-  filter {
-    name = "AMI"
-
-    values = ["app"]
-  }
-
-  filter {
-    name = "SHA"
-
-    values = [var.ami_sha]
-  }
-
-  owners = ["self"]
-}
-
 variable "name" {
     description = "Environment name"
 }
