@@ -16,7 +16,7 @@ data "aws_ami" "amazon_linux" {
   filter {
     name = "SHA"
 
-    values = [var.ami_sha]
+    values = ["${var.ami_sha}"]
   }
 
   owners = ["self"]
