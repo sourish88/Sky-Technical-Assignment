@@ -18,10 +18,10 @@ THIS_SCRIPT=${BASH_SOURCE[0]:-$0}
 if [[ -L "${THIS_SCRIPT}" ]]; then
   THIS_SCRIPT=`readlink ${THIS_SCRIPT} 2>&1`
 fi
-PROJECT_HOME="$( cd "$( dirname "${THIS_SCRIPT}" )/.." && pwd )"
+PROJECT_HOME="$( cd "$( dirname "${THIS_SCRIPT}" )/../infra" && pwd )"
 
 # load our helper functions
-source ${PROJECT_HOME}/scripts/common.sh
+source ${PROJECT_HOME}/../scripts/common.sh
 
 # default to plan, to show changes, valid opions are plan, apply & destroy
 TF_ACTION=plan
@@ -46,6 +46,7 @@ package_check
 check_aws_credentials
 
 GIT_BRANCH=$(get_git_branch)
+SHA=$(get_base_ami FALSE app app)
 TF_WORKSPACE=$(map_branch_to_workspace ${GIT_BRANCH})
 TF_VARS_FILE=$(map_branch_to_tfvars ${GIT_BRANCH})
 
@@ -60,7 +61,7 @@ terraform workspace select ${TF_WORKSPACE}
 case "${TF_ACTION}" in
     plan)
         [[ ! -d plan ]] && mkdir plan
-        terraform plan -var-file=${TF_VARS_FILE} -out=plan/plan.out
+        terraform plan -var-file=${TF_VARS_FILE} -var ami_sha=${SHA} -out=plan/plan.out
         ;;
     apply)
         terraform apply plan/plan.out
