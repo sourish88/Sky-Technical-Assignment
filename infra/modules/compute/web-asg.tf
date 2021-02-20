@@ -16,7 +16,7 @@ data "aws_ami" "amazon_linux" {
   filter {
     name = "tag:SHA"
 
-    values = ["${var.ami_sha}"]
+    values = ["a4bdd641906d852978e996719dc9c8eeef6fe3c8"]
   }
 
   owners = ["self"]
