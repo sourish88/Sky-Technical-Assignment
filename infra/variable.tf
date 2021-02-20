@@ -2,12 +2,12 @@
 
 variable "region" {
   description = "The AWS region to deploy to"
-  default = "us-east-1"
+  default     = "us-east-1"
 }
 
 variable "name" {
   description = "The name of the deployment"
-  default = ""
+  default     = ""
 }
 
 variable "public_key" {
@@ -20,12 +20,12 @@ variable "ami_sha" {
 
 variable "web_port" {
   description = "The port on which the web servers listen for connections"
-  default = 80
+  default     = 80
 }
 
 variable "app_port" {
   description = "The port on which the web servers listen for connections"
-  default = 8080
+  default     = 8080
 }
 
 # Borrowed from VPC Module from Terraform Module Repository:
