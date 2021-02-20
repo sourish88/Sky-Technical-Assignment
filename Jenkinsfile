@@ -30,7 +30,7 @@ pipeline {
           agent { docker { image 'simonmcc/hashicorp-pipeline:latest' } }
           steps {
             checkout scm
-            sh "cd infra; terraform fmt -check=true -diff=true"
+            sh "terraform fmt -check=true -diff=true"
           }
         }
       }
