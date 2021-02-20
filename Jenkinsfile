@@ -3,7 +3,6 @@
 // of a Multibranch Project in Jenkins - this fits with the model of branches/PR's being
 // tested & master being deployed)
 pipeline {
-  agent any
   environment {
      AWS_DEFAULT_REGION = 'us-east-1'
   }
