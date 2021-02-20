@@ -8,15 +8,9 @@ data "aws_ami" "amazon_linux" {
   most_recent = true
 
   filter {
-    name = "tag:AMI"
+    name = "name"
 
-    values = ["app"]
-  }
-
-  filter {
-    name = "tag:SHA"
-
-    values = ["a4bdd641906d852978e996719dc9c8eeef6fe3c8"]
+    values = ["app 1613852570"]
   }
 
   owners = ["self"]
