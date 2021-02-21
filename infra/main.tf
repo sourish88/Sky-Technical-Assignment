@@ -8,7 +8,6 @@ module "network" {
 
   vpc_public_subnets   = var.vpc_public_subnets
   vpc_private_subnets  = var.vpc_private_subnets
-  vpc_database_subnets = var.vpc_database_subnets
 
   vpc_enable_nat_gateway     = var.vpc_enable_nat_gateway
   vpc_single_nat_gateway     = var.vpc_single_nat_gateway

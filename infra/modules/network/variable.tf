@@ -18,11 +18,6 @@ variable "vpc_private_subnets" {
   default     = []
 }
 
-variable "vpc_database_subnets" {
-  description = "A list of database subnets"
-  default     = []
-}
-
 variable "vpc_azs" {
   description = "A list of availability zones in the region"
   default     = []
