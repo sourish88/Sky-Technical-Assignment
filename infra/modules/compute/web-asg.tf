@@ -49,7 +49,6 @@ resource "aws_autoscaling_group" "web" {
 
   load_balancers    = [module.elb_web.this_elb_name]
   health_check_type = "EC2"
-  health_check_grace_period = 10
 
   min_size = var.web_autoscale_min_size
   max_size = var.web_autoscale_max_size
@@ -78,7 +77,7 @@ resource "aws_autoscaling_policy" "agents-scale-up" {
     name = "agents-scale-up"
     scaling_adjustment = 1
     adjustment_type = "ChangeInCapacity"
-    cooldown = 10
+    cooldown = 300
     autoscaling_group_name = aws_autoscaling_group.web.name
 }
 
@@ -86,7 +85,7 @@ resource "aws_autoscaling_policy" "agents-scale-down" {
     name = "agents-scale-down"
     scaling_adjustment = -1
     adjustment_type = "ChangeInCapacity"
-    cooldown = 10
+    cooldown = 300
     autoscaling_group_name = aws_autoscaling_group.web.name
 }
 
@@ -96,7 +95,7 @@ resource "aws_cloudwatch_metric_alarm" "memory-high" {
     evaluation_periods = "2"
     metric_name = "CPUUtilization"
     namespace = "AWS/EC2"
-    period = "10"
+    period = "120"
     statistic = "Average"
     threshold = "60"
     alarm_description = "This metric monitors ec2 cpu for high utilization on hosts"
@@ -114,7 +113,7 @@ resource "aws_cloudwatch_metric_alarm" "memory-low" {
     evaluation_periods = "2"
     metric_name = "CPUUtilization"
     namespace = "AWS/EC2"
-    period = "10"
+    period = "120"
     statistic = "Average"
     threshold = "40"
     alarm_description = "This metric monitors ec2 cpu for low utilization on hosts"
