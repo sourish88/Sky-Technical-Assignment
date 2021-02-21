@@ -1,0 +1,7 @@
+---
+lockfile_version: 1
+supports:
+  - platform: aws
+depends:
+  - name: inspec-aws
+    url: https://github.com/inspec/inspec-aws.git
