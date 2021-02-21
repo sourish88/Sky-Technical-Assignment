@@ -1,8 +1,4 @@
 
-depends:
-- name: inspec-aws
-  url: https://github.com/inspec/inspec-aws.git
-
 content = inspec.profile.file("output.json")
 params = JSON.parse(content)
 
