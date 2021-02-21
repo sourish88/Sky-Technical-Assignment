@@ -13,12 +13,6 @@ data "aws_ami" "amazon_linux" {
   }
 
   filter {
-    name = "tag:AMI"
-
-    values = ["app"]
-  }
-
-  filter {
     name = "tag:SHA"
 
     values = [var.ami_sha]
