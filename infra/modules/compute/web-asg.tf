@@ -1,5 +1,5 @@
 resource "aws_key_pair" "ssh-key" {
-  key_name = "ssh-key"
+  key_name = "${var.name}-ssh-key"
   public_key = file(var.public_key)
 
 }
@@ -29,7 +29,7 @@ resource "aws_launch_configuration" "web" {
   image_id        = data.aws_ami.amazon_linux.id
   instance_type   = var.web_instance_type
   security_groups = [var.web_sec_grp_id]
-  key_name = "ssh-key"
+  key_name = aws_key_pair.ssh-key.key_name
   name_prefix = "${var.name}-web-vm-"
 
   user_data = base64encode(data.template_file.web_user_data.rendered)
@@ -71,4 +71,56 @@ resource "aws_autoscaling_group" "web" {
             propagate_at_launch = true
         }  
     ])
+}
+
+resource "aws_autoscaling_policy" "agents-scale-up" {
+    name = "agents-scale-up"
+    scaling_adjustment = 1
+    adjustment_type = "ChangeInCapacity"
+    cooldown = 300
+    autoscaling_group_name = aws_autoscaling_group.web.name
+}
+
+resource "aws_autoscaling_policy" "agents-scale-down" {
+    name = "agents-scale-down"
+    scaling_adjustment = -1
+    adjustment_type = "ChangeInCapacity"
+    cooldown = 300
+    autoscaling_group_name = aws_autoscaling_group.web.name
+}
+
+resource "aws_cloudwatch_metric_alarm" "memory-high" {
+    alarm_name = "${var.name}-cpu-util-high"
+    comparison_operator = "GreaterThanOrEqualToThreshold"
+    evaluation_periods = "2"
+    metric_name = "CPUUtilization"
+    namespace = "System/Linux"
+    period = "300"
+    statistic = "Average"
+    threshold = "60"
+    alarm_description = "This metric monitors ec2 cpu for high utilization on hosts"
+    alarm_actions = [
+        aws_autoscaling_policy.agents-scale-up.arn
+    ]
+    dimensions = {
+        AutoScalingGroupName = aws_autoscaling_group.web.name
+    }
+}
+
+resource "aws_cloudwatch_metric_alarm" "memory-low" {
+    alarm_name = "${var.name}-cpu-util-low"
+    comparison_operator = "LessThanOrEqualToThreshold"
+    evaluation_periods = "2"
+    metric_name = "CPUUtilization"
+    namespace = "System/Linux"
+    period = "300"
+    statistic = "Average"
+    threshold = "40"
+    alarm_description = "This metric monitors ec2 cpu for low utilization on hosts"
+    alarm_actions = [
+        aws_autoscaling_policy.agents-scale-down.arn
+    ]
+    dimensions = {
+        AutoScalingGroupName = aws_autoscaling_group.web.name
+    }
 }
