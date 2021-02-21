@@ -174,4 +174,10 @@ pipeline {
       }
     }
   }
+
+  post {
+    always {
+        archiveArtifacts artifacts: '**/*.*', onlyIfSuccessful: true
+    }
+  }
 }
