@@ -78,7 +78,7 @@ resource "aws_autoscaling_policy" "agents-scale-up" {
     scaling_adjustment = 1
     adjustment_type = "ChangeInCapacity"
     cooldown = 300
-    autoscaling_group_name = "${aws_autoscaling_group.web.name}"
+    autoscaling_group_name = aws_autoscaling_group.web.name
 }
 
 resource "aws_autoscaling_policy" "agents-scale-down" {
@@ -86,7 +86,7 @@ resource "aws_autoscaling_policy" "agents-scale-down" {
     scaling_adjustment = -1
     adjustment_type = "ChangeInCapacity"
     cooldown = 300
-    autoscaling_group_name = "${aws_autoscaling_group.web.name}"
+    autoscaling_group_name = aws_autoscaling_group.web.name
 }
 
 resource "aws_cloudwatch_metric_alarm" "memory-high" {
@@ -100,10 +100,10 @@ resource "aws_cloudwatch_metric_alarm" "memory-high" {
     threshold = "60"
     alarm_description = "This metric monitors ec2 cpu for high utilization on hosts"
     alarm_actions = [
-        "${aws_autoscaling_policy.agents-scale-up.arn}"
+        aws_autoscaling_policy.agents-scale-up.arn
     ]
     dimensions = {
-        AutoScalingGroupName = "${aws_autoscaling_group.web.name}"
+        AutoScalingGroupName = aws_autoscaling_group.web.name
     }
 }
 
@@ -118,9 +118,9 @@ resource "aws_cloudwatch_metric_alarm" "memory-low" {
     threshold = "40"
     alarm_description = "This metric monitors ec2 cpu for low utilization on hosts"
     alarm_actions = [
-        "${aws_autoscaling_policy.agents-scale-down.arn}"
+        aws_autoscaling_policy.agents-scale-down.arn
     ]
     dimensions = {
-        AutoScalingGroupName = "${aws_autoscaling_group.web.name}"
+        AutoScalingGroupName = aws_autoscaling_group.web.name
     }
 }
