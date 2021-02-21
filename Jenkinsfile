@@ -108,7 +108,7 @@ pipeline {
             sh "mkdir aws-security/files || true"
             sh "mkdir test-results || true"
             sh "cp infra/output.json aws-security/files/output.json"
-            sh "export CHEF_LICENSE=accept; export HOME="./aws-security/"; inspec exec aws-security --reporter=cli junit:test-results/inspec-junit.xml -t aws://us-east-1"
+            sh "export CHEF_LICENSE=accept; export HOME='./aws-security/'; inspec exec aws-security --reporter=cli junit:test-results/inspec-junit.xml -t aws://us-east-1"
             sh "touch test-results/inspec-junit.xml"
             junit 'test-results/*.xml'
           }
