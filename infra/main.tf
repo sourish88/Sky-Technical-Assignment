@@ -7,11 +7,6 @@ module "network" {
   name   = var.name
 
   vpc_public_subnets   = var.vpc_public_subnets
-  vpc_private_subnets  = var.vpc_private_subnets
-
-  vpc_enable_nat_gateway     = var.vpc_enable_nat_gateway
-  vpc_single_nat_gateway     = var.vpc_single_nat_gateway
-  vpc_one_nat_gateway_per_az = var.vpc_one_nat_gateway_per_az
 
 }
 
