@@ -61,7 +61,8 @@ pipeline {
         withCredentials([[$class: 'AmazonWebServicesCredentialsBinding',
                           credentialsId: 'demo-aws-creds',
                           accessKeyVariable: 'AWS_ACCESS_KEY_ID',
-                          secretKeyVariable: 'AWS_SECRET_ACCESS_KEY' ]]) {
+                          secretKeyVariable: 'AWS_SECRET_ACCESS_KEY' ],
+                          [file(credentialsId: 'PUBLIC_KEY', variable: 'SSH_PUB_KEY')]]) {
           wrap([$class: 'AnsiColorBuildWrapper', 'colorMapName': 'xterm']) {
             sh "./scripts/tf-wrapper.sh -a plan"
             sh "./scripts/tf-wrapper.sh -a apply"
@@ -142,7 +143,7 @@ pipeline {
                           secretKeyVariable: 'AWS_SECRET_ACCESS_KEY' ],
                           [file(credentialsId: 'PUBLIC_KEY', variable: 'SSH_PUB_KEY')]]) {
           wrap([$class: 'AnsiColorBuildWrapper', 'colorMapName': 'xterm']) {
-            sh "echo ${SSH_PUB_KEY}; ./scripts/tf-wrapper.sh -a plan"
+            sh "./scripts/tf-wrapper.sh -a plan"
             stash name: 'terraform_plan', includes: 'plan/plan.out,.terraform/**'
           }
         }
