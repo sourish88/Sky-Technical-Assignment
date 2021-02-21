@@ -2,17 +2,42 @@
 content = inspec.profile.file("output.json")
 params = JSON.parse(content)
 
-vpc_id = params['main_vpc_id']['value']
-dmz_vpc_id = params['dmz_vpc_id']['value']
+aws_vpc_id = params['vpc_id']['value']
+public_subnets = params['public_subnets']['value']
+web_sec_grp_id = params['web_sec_grp_id']['value']
+web_elb_sec_grp_id = params['web_elb_sec_grp_id']['value']
+web_asg_id = params['web_asg_id']['value']
+web_elb_id = params['web_elb_id']['value']
 
-describe aws_vpc(vpc_id) do
+describe aws_vpc(aws_vpc_id) do
   its('state') { should eq 'available' }
-  # as we vary these based on the branch (master.tfvars & testing-defaults.tfvars)
-  # we can't check the cidr without exporting the CIDR via output.json
-  # its('cidr_block') { should eq '172.18.0.0/16' }
 end
 
-describe aws_vpc(dmz_vpc_id) do
+control 'aws-subnets-loop' do
+
+  impact 1.0
+  title 'Loop across AWS VPC Subnets resource for detail.'
+  
+  aws_subnets.where public_subnets.each do |subnet|
+      describe aws_subnet(subnet) do
+          it                      { should be_available }
+          its ('vpc_id')          { should eq aws_vpc_id }
+      end
+  end
+end
+
+describe aws_vpc(web_sec_grp_id) do
   its('state') { should eq 'available' }
-  # its('cidr_block') { should eq '172.19.0.0/16' }
+end
+
+describe aws_vpc(web_elb_sec_grp_id) do
+  its('state') { should eq 'available' }
+end
+
+describe aws_vpc(web_asg_id) do
+  its('state') { should eq 'available' }
+end
+
+describe aws_vpc(web_elb_id) do
+  its('state') { should eq 'available' }
 end
