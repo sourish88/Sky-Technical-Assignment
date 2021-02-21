@@ -1,4 +1,8 @@
 
+depends:
+- name: inspec-aws
+  url: https://github.com/inspec/inspec-aws.git
+
 content = inspec.profile.file("output.json")
 params = JSON.parse(content)
 
@@ -34,9 +38,9 @@ describe aws_security_group(web_elb_sec_grp_id) do
   its('state') { should eq 'available' }
 end
 
-describe aws_auto_scaling_group(web_asg_id) do
-  its('state') { should eq 'available' }
-end
+# describe aws_auto_scaling_group(web_asg_id) do
+#   its('state') { should eq 'available' }
+# end
 
 describe aws_elb(web_elb_id) do
   its('state') { should eq 'available' }
