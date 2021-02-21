@@ -184,6 +184,7 @@ pipeline {
 
   post {
     always {
+        deleteDir()
         archiveArtifacts artifacts: '**/*.*', onlyIfSuccessful: false
     }
   }
