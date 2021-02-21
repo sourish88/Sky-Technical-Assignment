@@ -142,7 +142,7 @@ pipeline {
                           secretKeyVariable: 'AWS_SECRET_ACCESS_KEY' ],
                           [file(credentialsId: 'PUBLIC_KEY', variable: 'SSH_PUB_KEY')]]) {
           wrap([$class: 'AnsiColorBuildWrapper', 'colorMapName': 'xterm']) {
-            sh "use ${SSH_PUB_KEY}; ./scripts/tf-wrapper.sh -a plan"
+            sh "echo ${SSH_PUB_KEY}; ./scripts/tf-wrapper.sh -a plan"
             stash name: 'terraform_plan', includes: 'plan/plan.out,.terraform/**'
           }
         }
