@@ -19,6 +19,7 @@ pipeline {
             }
           }
           steps {
+            deleteDir()
             checkout scm
             wrap([$class: 'AnsiColorBuildWrapper', 'colorMapName': 'xterm']) {
               sh "packer validate ./base/base.json"
@@ -183,7 +184,6 @@ pipeline {
 
   post {
     always {
-        deleteDir()
         archiveArtifacts artifacts: '**/*.*', onlyIfSuccessful: false
     }
   }
