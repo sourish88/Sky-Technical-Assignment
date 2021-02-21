@@ -19,6 +19,7 @@ if [[ -L "${THIS_SCRIPT}" ]]; then
   THIS_SCRIPT=`readlink ${THIS_SCRIPT} 2>&1`
 fi
 PROJECT_HOME="$( cd "$( dirname "${THIS_SCRIPT}" )/../infra" && pwd )"
+cd ${PROJECT_HOME}
 
 # load our helper functions
 source ${PROJECT_HOME}/../scripts/common.sh
@@ -61,7 +62,6 @@ terraform workspace select ${TF_WORKSPACE}
 case "${TF_ACTION}" in
     plan)
         [[ ! -d plan ]] && mkdir plan
-        ls -ltr
         terraform plan -var-file=${TF_VARS_FILE} --var ami_sha=${SHA} -out=plan/plan.out
         ;;
     apply)
