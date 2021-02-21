@@ -157,7 +157,7 @@ EOF
 
 map_branch_to_workspace() {
   # TODO input & output sanity checking..
-  if [[ $1 = 'master' ]]; then
+  if [[ $1 = 'main' ]]; then
     echo "default" | tr / -
   else
     echo $1 | tr / -
@@ -168,7 +168,7 @@ map_branch_to_tfvars() {
 		# map the branch to a tfvars file, with some sensible defaults
 		local TF_VARS_FILE
 		case "$1" in
-				master)
+				main)
 						TF_VARS_FILE=master.tfvars
 						;;
 				develop)
