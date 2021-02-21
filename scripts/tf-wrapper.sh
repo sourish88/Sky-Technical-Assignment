@@ -71,7 +71,7 @@ case "${TF_ACTION}" in
         terraform output -json > output.json
         ;;
     destroy)
-        terraform destroy -var-file=${TF_VARS_FILE} -auto-approve
+        terraform destroy -var-file=${TF_VARS_FILE} -auto-approve -refresh=false
         terraform workspace select default
         terraform workspace delete ${TF_WORKSPACE}
         ;;
