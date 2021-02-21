@@ -49,6 +49,7 @@ resource "aws_autoscaling_group" "web" {
 
   load_balancers    = [module.elb_web.this_elb_name]
   health_check_type = "EC2"
+  health_check_grace_period = 10
 
   min_size = var.web_autoscale_min_size
   max_size = var.web_autoscale_max_size
@@ -77,7 +78,7 @@ resource "aws_autoscaling_policy" "agents-scale-up" {
     name = "agents-scale-up"
     scaling_adjustment = 1
     adjustment_type = "ChangeInCapacity"
-    cooldown = 300
+    cooldown = 10
     autoscaling_group_name = aws_autoscaling_group.web.name
 }
 
@@ -85,7 +86,7 @@ resource "aws_autoscaling_policy" "agents-scale-down" {
     name = "agents-scale-down"
     scaling_adjustment = -1
     adjustment_type = "ChangeInCapacity"
-    cooldown = 300
+    cooldown = 10
     autoscaling_group_name = aws_autoscaling_group.web.name
 }
 
