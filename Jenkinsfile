@@ -6,6 +6,7 @@ pipeline {
   agent none
   environment {
      AWS_DEFAULT_REGION = 'us-east-1'
+     PUBLIC_KEY = credentials('PUBLIC_KEY')
   }
 
   stages {
@@ -139,8 +140,7 @@ pipeline {
         withCredentials([[$class: 'AmazonWebServicesCredentialsBinding',
                           credentialsId: 'demo-aws-creds',
                           accessKeyVariable: 'AWS_ACCESS_KEY_ID',
-                          secretKeyVariable: 'AWS_SECRET_ACCESS_KEY' ],
-                          [file(credentialsId: 'PUBLIC_KEY', variable: 'my-public-key')]]) {
+                          secretKeyVariable: 'AWS_SECRET_ACCESS_KEY' ]]) {
           wrap([$class: 'AnsiColorBuildWrapper', 'colorMapName': 'xterm']) {
             sh "./scripts/tf-wrapper.sh -a plan"
             stash name: 'terraform_plan', includes: 'plan/plan.out,.terraform/**'
