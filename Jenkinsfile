@@ -180,4 +180,10 @@ pipeline {
       }
     }
   }
+
+  post {
+    always {
+        archiveArtifacts artifacts: '**/*.*', onlyIfSuccessful: false
+    }
+  }
 }
