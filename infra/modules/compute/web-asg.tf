@@ -29,12 +29,6 @@ data "aws_ami" "amazon_linux" {
 
 data "template_file" "web_user_data" {
     template = file("${path.module}/templates/web-user-data.tpl")
-
-    vars = {
-      this_elb_dns_name = module.elb_app.this_elb_dns_name
-      app_port = var.app_port
-      web_port = var.web_port
-    }
 }
 
 resource "aws_launch_configuration" "web" {
@@ -81,5 +75,4 @@ resource "aws_autoscaling_group" "web" {
             propagate_at_launch = true
         }  
     ])
-  depends_on = [ aws_autoscaling_group.app ]
 }
