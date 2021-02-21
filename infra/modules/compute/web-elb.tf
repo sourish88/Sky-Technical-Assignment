@@ -30,6 +30,4 @@ module "elb_web" {
     Environment = var.name
   }
 
-  depends_on = [ aws_autoscaling_group.app ]
-
 }
