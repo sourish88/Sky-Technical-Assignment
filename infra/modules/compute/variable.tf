@@ -18,7 +18,7 @@ variable "web_instance_type" {
 
 variable "web_autoscale_min_size" {
   description = "The fewest amount of EC2 instances to start"
-  default = 3
+  default = 1
 }
 
 variable "web_autoscale_max_size" {
