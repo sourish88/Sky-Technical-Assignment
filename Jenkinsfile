@@ -68,8 +68,8 @@ pipeline {
           wrap([$class: 'AnsiColorBuildWrapper', 'colorMapName': 'xterm']) {
             sh "./scripts/tf-wrapper.sh -a plan"
             sh "./scripts/tf-wrapper.sh -a apply"
-            sh "cat output.json"
-            stash name: 'terraform_output', includes: '**/output.json'
+            sh "cat infra/output.json"
+            stash name: 'terraform_output', includes: 'infra/output.json'
           }
         }
       }
