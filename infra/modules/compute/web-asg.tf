@@ -3,6 +3,29 @@ resource "aws_key_pair" "ssh-key" {
   public_key = file(var.public_key)
 
 }
+data "aws_ami" "amazon_linux" {
+  most_recent = true
+
+  filter {
+    name = "name"
+
+    values = ["app*"]
+  }
+
+  filter {
+    name = "tag:AMI"
+
+    values = ["app"]
+  }
+
+  filter {
+    name = "tag:SHA"
+
+    values = [var.ami_sha]
+  }
+
+  owners = ["self"]
+}
 
 data "template_file" "web_user_data" {
     template = file("${path.module}/templates/web-user-data.tpl")
