@@ -7,3 +7,8 @@ output "public_subnets_cidr_blocks" {
   description = "List of cidr_blocks of public subnets"
   value       = module.network.public_subnets_cidr_blocks
 }
+
+output "public_subnets" {
+  description = "List of of public subnets"
+  value       = module.network.public_subnets
+}
