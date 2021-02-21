@@ -1,4 +1,4 @@
-variable "ami_sha" {
+variable "ami_id" {
   default = ""
 }
 

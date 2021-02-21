@@ -13,9 +13,9 @@ data "aws_ami" "amazon_linux" {
   }
 
   filter {
-    name = "tag:SHA"
+    name = "image-id"
 
-    values = [var.ami_sha]
+    values = [var.ami_id]
   }
 
   owners = ["self"]

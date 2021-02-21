@@ -47,7 +47,7 @@ package_check
 check_aws_credentials
 
 GIT_BRANCH=$(get_git_branch)
-SHA=$(get_base_ami false ../app app)
+AMI_ID=$(get_base_ami false ../app app)
 TF_WORKSPACE=$(map_branch_to_workspace ${GIT_BRANCH})
 TF_VARS_FILE=$(map_branch_to_tfvars ${GIT_BRANCH})
 
@@ -62,8 +62,7 @@ terraform workspace select ${TF_WORKSPACE}
 case "${TF_ACTION}" in
     plan)
         [[ ! -d plan ]] && mkdir plan
-        echo "Image SHA: ${SHA}"
-        terraform plan -var-file=${TF_VARS_FILE} --var ami_sha=${SHA} -out=plan/plan.out
+        terraform plan -var-file=${TF_VARS_FILE} --var ami_id=${AMI_ID} -out=plan/plan.out
         ;;
     apply)
         terraform apply plan/plan.out

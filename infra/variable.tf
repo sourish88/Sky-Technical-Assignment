@@ -14,7 +14,7 @@ variable "public_key" {
   default = ""
 }
 
-variable "ami_sha" {
+variable "ami_id" {
   default = ""
 }
 
