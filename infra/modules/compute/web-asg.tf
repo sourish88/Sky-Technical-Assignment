@@ -41,6 +41,8 @@ resource "aws_launch_configuration" "web" {
 }
 
 resource "aws_autoscaling_group" "web" {
+  name_prefix = "${var.name}-web-asg-"
+
   launch_configuration = aws_launch_configuration.web.id
 
   vpc_zone_identifier = var.public_subnets
