@@ -1,6 +1,4 @@
-provider "aws" {
-
-}
+provider "aws" {}
 
 module "network" {
   source = "./modules/network"
