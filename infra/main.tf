@@ -2,17 +2,17 @@ provider "aws" {}
 
 module "network" {
   source = "./modules/network"
-  azs    = var.vpc_azs
-  cidr   = var.vpc_cidr
+  vpc_azs    = var.vpc_azs
+  vpc_cidr   = var.vpc_cidr
   name   = var.name
 
-  public_subnets   = var.vpc_public_subnets
-  private_subnets  = var.vpc_private_subnets
-  database_subnets = var.vpc_database_subnets
+  vpc_public_subnets   = var.vpc_public_subnets
+  vpc_private_subnets  = var.vpc_private_subnets
+  vpc_database_subnets = var.vpc_database_subnets
 
-  enable_nat_gateway     = var.vpc_enable_nat_gateway
-  single_nat_gateway     = var.vpc_single_nat_gateway
-  one_nat_gateway_per_az = var.vpc_one_nat_gateway_per_az
+  vpc_enable_nat_gateway     = var.vpc_enable_nat_gateway
+  vpc_single_nat_gateway     = var.vpc_single_nat_gateway
+  vpc_one_nat_gateway_per_az = var.vpc_one_nat_gateway_per_az
 
 }
 
