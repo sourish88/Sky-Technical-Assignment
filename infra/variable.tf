@@ -25,7 +25,7 @@ variable "web_port" {
 
 variable "app_port" {
   description = "The port on which the web servers listen for connections"
-  default     = 8080
+  default     = 80
 }
 
 # Borrowed from VPC Module from Terraform Module Repository:
