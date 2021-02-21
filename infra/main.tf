@@ -31,7 +31,7 @@ module "compute" {
 
   name               = var.name
   public_key         = var.public_key
-  ami_sha            = var.ami_sha
+  ami_id            = var.ami_id
   web_port           = var.web_port
   app_port           = var.app_port
   web_sec_grp_id     = module.security.web_sec_grp_id
