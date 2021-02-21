@@ -2,14 +2,14 @@
 content = inspec.profile.file("output.json")
 params = JSON.parse(content)
 
-aws_vpc_id = params['vpc_id']['value']
+vpc_id = params['vpc_id']['value']
 # public_subnets = params['public_subnets']['value']
 # web_sec_grp_id = params['web_sec_grp_id']['value']
 # web_elb_sec_grp_id = params['web_elb_sec_grp_id']['value']
 # web_asg_id = params['web_asg_id']['value']
 # web_elb_id = params['web_elb_id']['value']
 
-describe aws_vpc(aws_vpc_id) do
+describe aws_vpc(vpc_id) do
   its('state') { should eq 'available' }
 end
 
