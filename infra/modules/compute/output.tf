@@ -3,5 +3,5 @@ output "web_asg_id" {
 }
 
 output "web_elb_id" {
-  value = module.elb.id
+  value = module.elb_web.id
 }
