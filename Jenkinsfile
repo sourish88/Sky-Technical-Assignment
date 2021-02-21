@@ -54,7 +54,7 @@ pipeline {
     stage('build test stack') {
       agent { docker { image 'sourish88/hashicorp-pipeline:latest' } }
       when {
-        expression { env.BRANCH_NAME != 'master' }
+        expression { env.BRANCH_NAME != 'main' }
       }
       steps {
         checkout scm
@@ -94,7 +94,7 @@ pipeline {
         }
       }
       when {
-        expression { env.BRANCH_NAME != 'master' }
+        expression { env.BRANCH_NAME != 'main' }
       }
       steps {
         checkout scm
@@ -118,7 +118,7 @@ pipeline {
     stage('destroy test stack') {
       agent { docker { image 'sourish88/hashicorp-pipeline:latest' } }
       when {
-        expression { env.BRANCH_NAME != 'master' }
+        expression { env.BRANCH_NAME != 'main' }
       }
       steps {
         checkout scm
@@ -135,7 +135,7 @@ pipeline {
     stage('terraform plan - master') {
       agent { docker { image 'sourish88/hashicorp-pipeline:latest' } }
       when {
-        expression { env.BRANCH_NAME == 'master' }
+        expression { env.BRANCH_NAME == 'main' }
       }
       steps {
         checkout scm
@@ -155,7 +155,7 @@ pipeline {
     }
     stage('Manual Approval') {
       when {
-        expression { env.BRANCH_NAME == 'master' }
+        expression { env.BRANCH_NAME == 'main' }
       }
       steps {
         input 'Do you approve the apply?'
@@ -164,7 +164,7 @@ pipeline {
     stage('terraform apply - master') {
       agent { docker { image 'sourish88/hashicorp-pipeline:latest' } }
       when {
-        expression { env.BRANCH_NAME == 'master' }
+        expression { env.BRANCH_NAME == 'main' }
       }
       steps {
         checkout scm
