@@ -104,10 +104,10 @@ pipeline {
                           secretKeyVariable: 'AWS_SECRET_ACCESS_KEY' ]]) {
           wrap([$class: 'AnsiColorBuildWrapper', 'colorMapName': 'xterm']) {
             unstash 'terraform_output'
-            sh "cat output.json"
+            sh "cat infra/output.json"
             sh "mkdir aws-security/files || true"
             sh "mkdir test-results || true"
-            sh "cp output.json aws-security/files/output.json"
+            sh "cp infra/output.json aws-security/files/output.json"
             sh "export CHEF_LICENSE=accept; inspec exec aws-security --reporter=cli junit:test-results/inspec-junit.xml -t aws://us-east-1"
             sh "touch test-results/inspec-junit.xml"
             junit 'test-results/*.xml'
