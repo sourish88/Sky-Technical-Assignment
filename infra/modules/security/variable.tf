@@ -19,16 +19,3 @@ variable "app_port" {
 variable "public_subnets_cidr_blocks" {
   description = "CIDR block for public subnets"
 }
-
-variable "private_subnets_cidr_blocks" {
-  description = "CIDR block for private subnets"
-}
-
-variable "database_subnets" {
-  description = "CIDR block for database subnets"
-}
-
-variable "db_port" {
-  description = "The port on which the DB accepts connections"
-  default = 5432
-}

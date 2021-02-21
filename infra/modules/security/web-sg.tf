@@ -4,8 +4,8 @@ resource "aws_security_group" "web" {
   vpc_id = var.vpc_id
 
   ingress {
-    from_port   = var.web_port
-    to_port     = var.web_port
+    from_port   = var.app_port
+    to_port     = var.app_port
     protocol    = "tcp"
     cidr_blocks = ["0.0.0.0/0"]
   }

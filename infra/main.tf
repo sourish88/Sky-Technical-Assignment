@@ -23,10 +23,7 @@ module "security" {
   vpc_id                      = module.network.vpc_id
   web_port                    = var.web_port
   app_port                    = var.app_port
-  db_port                     = var.db_port
-  private_subnets_cidr_blocks = module.network.private_subnets_cidr_blocks
   public_subnets_cidr_blocks  = module.network.public_subnets_cidr_blocks
-  database_subnets            = module.network.database_subnets
 }
 
 module "compute" {
