@@ -62,7 +62,7 @@ terraform workspace select ${TF_WORKSPACE}
 case "${TF_ACTION}" in
     plan)
         [[ ! -d plan ]] && mkdir plan
-        terraform plan -var-file=${TF_VARS_FILE} --var ami_id=${AMI_ID} --var public_key=${PUBLIC_KEY} -out=plan/plan.out
+        terraform plan -var-file=${TF_VARS_FILE} --var ami_id=${AMI_ID} --var public_key=${SSH_PUB_KEY} -out=plan/plan.out
         ;;
     apply)
         terraform apply plan/plan.out
