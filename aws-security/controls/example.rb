@@ -27,11 +27,11 @@ control 'aws-subnets-loop' do
 end
 
 describe aws_security_group(web_sec_grp_id) do
-  it { should eq 'available' }
+  it { should exist }
 end
 
 describe aws_security_group(web_elb_sec_grp_id) do
-  it { should eq 'available' }
+  it { should exist }
 end
 
 # describe aws_auto_scaling_group(web_asg_id) do
@@ -39,5 +39,5 @@ end
 # end
 
 describe aws_elb(web_elb_id) do
-  it { should eq 'available' }
+  it { should exist }
 end
