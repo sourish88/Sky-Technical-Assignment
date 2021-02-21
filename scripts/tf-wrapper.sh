@@ -61,6 +61,7 @@ terraform workspace select ${TF_WORKSPACE}
 case "${TF_ACTION}" in
     plan)
         [[ ! -d plan ]] && mkdir plan
+        ls -ltr
         terraform plan -var-file=${TF_VARS_FILE} --var ami_sha=${SHA} -out=plan/plan.out
         ;;
     apply)
