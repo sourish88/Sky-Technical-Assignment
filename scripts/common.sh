@@ -57,6 +57,7 @@ get_base_ami () {
     local NAME=$3
     if [ "$BASE_BUILT" = "false" ]; then
         EXISTING_BASE_SHA="$(git ls-tree HEAD $DIR | cut -d" " -f3 | cut -f1)"
+        echo "SHA: $EXISTING_BASE_SHA"
         EXISTING_BASE_IMAGE=$(aws ec2 describe-images --filters Name=tag:SHA,Values=$EXISTING_BASE_SHA --query 'Images[*]' | jq -r '.[0].ImageId')
         echo "$EXISTING_BASE_IMAGE"
     else
