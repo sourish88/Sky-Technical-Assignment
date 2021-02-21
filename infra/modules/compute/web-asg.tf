@@ -29,7 +29,7 @@ resource "aws_launch_configuration" "web" {
   image_id        = data.aws_ami.amazon_linux.id
   instance_type   = var.web_instance_type
   security_groups = [var.web_sec_grp_id]
-  key_name = "ssh-key"
+  key_name = aws_key_pair.ssh-key.name
   name_prefix = "${var.name}-web-vm-"
 
   user_data = base64encode(data.template_file.web_user_data.rendered)
