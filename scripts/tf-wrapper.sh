@@ -47,7 +47,7 @@ package_check
 check_aws_credentials
 
 GIT_BRANCH=$(get_git_branch)
-SHA=$(get_base_ami FALSE app app)
+SHA=$(get_base_ami false app app)
 TF_WORKSPACE=$(map_branch_to_workspace ${GIT_BRANCH})
 TF_VARS_FILE=$(map_branch_to_tfvars ${GIT_BRANCH})
 
