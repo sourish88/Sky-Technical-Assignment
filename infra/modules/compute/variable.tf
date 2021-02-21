@@ -44,6 +44,11 @@ variable "web_port" {
   default = 80
 }
 
+variable "app_port" {
+  description = "The port on which the app servers listen for connections"
+  default = 8080
+}
+
 variable "web_elb_health_check_interval" {
   description = "Duration between health checks"
   default = 20
