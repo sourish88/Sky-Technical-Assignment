@@ -9,7 +9,7 @@ data "aws_ami" "amazon_linux" {
   filter {
     name = "name"
 
-    values = ["app*"]
+    values = ["demo-app-*"]
   }
 
   filter {
