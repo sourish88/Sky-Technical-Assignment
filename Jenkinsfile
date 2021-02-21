@@ -66,7 +66,6 @@ pipeline {
           file(credentialsId: 'PUBLIC_KEY', variable: 'SSH_PUB_KEY')
           ]) {
           wrap([$class: 'AnsiColorBuildWrapper', 'colorMapName': 'xterm']) {
-            sh "find . output.json -ls -exec rm {} \;"
             sh "./scripts/tf-wrapper.sh -a plan"
             sh "./scripts/tf-wrapper.sh -a apply"
             sh "cat infra/output.json"
