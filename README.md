@@ -1,6 +1,6 @@
 # Description
 
-This is a Jenkins pipeline to create base ubuntu AMI and apache webserver AMI for AWS EC2 (t2.micro) instances and deploy the same apache AMI to 3 EC2 instances of an auto scaling group behind an ELB. All the infrastructure will be deployed in public subnet. This pipeline will also create cloudwatch alarms for the autoscaling group to automatically scale up if CPU utilization is greater than 60% and scale down if less than 40%.
+This is a Jenkins pipeline to create base ubuntu AMI (demo-baseline-ubuntu-...) and apache webserver AMI (demo-app-...) for AWS EC2 (t2.micro) instances and deploy the same apache AMI to 3 EC2 instances of an auto scaling group behind an ELB. All the infrastructure will be deployed in public subnet. This pipeline will also create cloudwatch alarms for the autoscaling group to automatically scale up if CPU utilization is greater than 60% and scale down if less than 40%.
 
 This pipeline has mutiple stages as described below which are executed based on the branch (master and feature) where the a changes is being pushed/commited.
 
