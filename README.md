@@ -1,8 +1,8 @@
 # Description
 
-This is a Jenkins pipeline to create base ubuntu AMI (demo-baseline-ubuntu-...) and apache webserver AMI (demo-app-...) for AWS EC2 (t2.micro) instances and deploy the same apache AMI to 3 EC2 instances of an auto scaling group behind an ELB. All the infrastructure will be deployed in public subnet. This pipeline will also create cloudwatch alarms for the autoscaling group to automatically scale up if CPU utilization is greater than 60% and scale down if less than 40%.
+This is a Jenkins pipeline to create base ubuntu AMI (demo-baseline-ubuntu-...) and apache webserver AMI (demo-app-...) for AWS EC2 (t2.micro) instances and deploy the same apache AMI to 3 EC2 instances of an auto scaling group behind an ELB. All the infrastructure will be deployed in public subnet under US North Virginia (us-east-1) region. This pipeline will also create cloudwatch alarms for the autoscaling group to automatically scale up if CPU utilization is greater than 60% and scale down if less than 40%.
 
-This pipeline has mutiple stages as described below which are executed based on the branch (master and feature) where the a changes is being pushed/commited.
+This multibranch pipeline has mutiple stages as described below which are executed based on the branch (master and feature) where the a changes is being pushed/commited.
 
 ## Feature branch
 Feature branch pipeline will be executed once commit is pushed in the respective feature branch as show below:
@@ -65,6 +65,11 @@ This is to manually approve the terraform plan generated in previous stage. Once
 
 This will apply the trraform plan generated and approved in previous stages.
 
+
+Once infrastructure is deployed through the main branch, you should be able to access the web page using ELB DNS name. Find the DNS name of the deployed ELB and paste on the browser with port 80/http. You should see below page which will show you the node hostname and will change after you refresh to prove that ELB is loadbalancing traffic to each node.
+
+![](images/webpage.png)
+
 # How to use ?
 
 ## Prerequisites
@@ -85,3 +90,12 @@ ssh-keygen -t rsa -b 4096 -C "Enter you comment"
 ```
 4. Upload the generated public key as Jenkins secret file credntial named as 'PUBLIC_KEY'
 5. Add multibranch pipeline using the Jenkinsfile in this repository. 
+
+# Test Autoscaling Group
+Each EC2 instance has stress utility installed. SSH to each node and run below stress command to generate CPU load :
+
+```
+stress --cpu 8 --timeout 300
+```
+
+Once stress is started, in next 5 minutes you should see 2 more instance created by autoscaling group. Kill the stress command once you are happy with the test which will bring down number of EC2 instances to 3 in next 5 minuts.
