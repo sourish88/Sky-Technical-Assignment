@@ -99,3 +99,5 @@ stress --cpu 8 --timeout 300
 ```
 
 Once stress is started, in next 5 minutes you should see 2 more instance created by autoscaling group. Kill the stress command once you are happy with the test which will bring down number of EC2 instances to 3 in next 5 minuts.
+
+<b>Credit:</b> This is based on [packer-terraform-cicd-aws]https://github.com/jenkins201/packer-terraform-cicd-aws with customisations on top that to meet the requirements
